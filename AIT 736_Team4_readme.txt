@@ -1,0 +1,39 @@
+# Enhancing Chatbot-Driven SQL Query Generation for Real-Time Database Answering  
+**Course:** AIT726 – Natural Language Processing with Deep Learning  
+**Professor:** Dr. Liao  
+**University:** George Mason University  
+**Team 4 Members:** Rushikesh Ware, Saharsh Koli  
+
+---
+
+> **NOTE:** The system will be re-compiled and re-run on the instructor’s computer to double-check for grading.  
+> Please clearly follow these setup and execution steps.
+
+---
+
+## Notebooks Submitted
+
+1. **AIT726_Team4_RSW_SKK_Model.ipynb**  
+   - Implements the end-to-end BART fine-tuning pipeline on the Spider dataset  
+   - Saves model checkpoints under `./checkpoints/`
+
+2. **AIT726_Team4_RSW_SKK_Demo.ipynb**  
+   - A Streamlit demo allowing:  
+     - CSV file uploads → in-memory SQLite tables  
+     - Natural-language questions → SQL generation via ONNX BART  
+     - Immediate execution and result display  
+   - Loads checkpoints from the model notebook for seamless inference
+
+---
+
+## Environment & Dependencies
+
+- **Python:** 3.8+  
+- **GPU:** Recommended (e.g., NVIDIA V100) but CPU is sufficient for the demo  
+- **Required Python packages:**  
+  ```bash
+  pip install torch>=1.8.0 transformers onnxruntime
+  pip install streamlit pandas numpy
+ 
+
+ 
