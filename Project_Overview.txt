@@ -13,11 +13,11 @@
 
 ## Notebooks Submitted
 
-1. **AIT726_Team4_RSW_SKK_Model.ipynb**  
+1. **Model_Training.ipynb**  
    - Implements the end-to-end BART fine-tuning pipeline on the Spider dataset  
    - Saves model checkpoints under `./checkpoints/`
 
-2. **AIT726_Team4_RSW_SKK_Demo.ipynb**  
+2. **Demo_Notebook.ipynb**  
    - A Streamlit demo allowing:  
      - CSV file uploads → in-memory SQLite tables  
      - Natural-language questions → SQL generation via ONNX BART  
