@@ -1,7 +1,9 @@
 🧠 NLP-SQL Transformer
+
 A Gradio-powered chatbot that transforms natural language questions into SQL queries, enabling users to explore their uploaded CSV data interactively.
 
 📄 Project Summary
+
 NLP-SQL Transformer is an intelligent question-answering system that allows users to upload one or more CSV files and ask data-related questions in plain English (e.g., "How many users are over 25?"). Powered by a fine-tuned BART Transformer model, it dynamically generates SQL queries and executes them on the uploaded files, returning both the query and the result.
 
 ➡️ Live Demo on Hugging Face Spaces
