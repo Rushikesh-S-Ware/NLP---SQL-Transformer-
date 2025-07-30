@@ -79,4 +79,4 @@ Rushikesh Ware – rware3@gmu.edu
 Saharsh Koli – skoli2@gmu.edu
 
 📜 License
-This project is licensed under the MIT License.
+This project is licensed under the MIT License (or you can add your own license as needed).
