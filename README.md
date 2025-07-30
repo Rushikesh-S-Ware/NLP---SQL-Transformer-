@@ -26,10 +26,10 @@ A Gradio-powered chatbot that transforms natural language questions into SQL que
 | File/Folder                    | Description                                                      |
 |-------------------------------|------------------------------------------------------------------|
 | `app.py`                      | Main application logic for Gradio interface and model inference |
-| `AIT726_Team4_RSW_SKK_Model.ipynb` | Model training & inference notebook                              |
-| `AIT726_Team4_RSW_SKK_Demo.ipynb`  | Demonstration and usage examples notebook                        |
-| `AIT_736_Team4_readme.txt`         | Project notes and experiment logs                                |
-| `checkpoint/`                 | Fine-tuned BART model directory                                 |
+| `Model_Training.ipynb` | Model training & inference notebook                              |
+| `Demo_Notebook.ipynb`  | Demonstration and usage examples notebook                        |
+| `Project_Overview.txt`         | Project notes and experiment logs                                |
+| `Model_Checkpoint.zip`                 | Fine-tuned BART model directory                                 |
 | `requirements.txt`            | Python dependencies for deployment                              |
 
 ---
