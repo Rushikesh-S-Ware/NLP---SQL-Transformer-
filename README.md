@@ -1,45 +1,45 @@
 🧠 NLP-SQL Transformer
+A Gradio-powered chatbot that transforms natural language questions into SQL queries, enabling users to explore their uploaded CSV data interactively.
 
-🔍 Project Summary
-NLP-SQL Transformer is a lightweight Gradio-based chatbot system that converts natural language questions into SQL queries over user-uploaded CSV files. Built using a fine-tuned BART Transformer, this project achieves real-time inference with schema-aware serialization and robust query generation.
+📄 Project Summary
+NLP-SQL Transformer is an intelligent question-answering system that allows users to upload one or more CSV files and ask data-related questions in plain English (e.g., "How many users are over 25?"). Powered by a fine-tuned BART Transformer model, it dynamically generates SQL queries and executes them on the uploaded files, returning both the query and the result.
 
-🚀 Try it live: Hugging Face Space ↗
+➡️ Live Demo on Hugging Face Spaces
 
-📌 Features
-Upload one or more CSV files
+🚀 Features
+📂 Upload one or more CSV files
 
-Ask natural language questions like:
-"How many rows contain age over 25?"
+🧠 Ask natural language questions
 
-Get:
+🧾 Generates executable SQL queries
 
-Executable SQL query
+📊 Returns tabular results
 
-Corresponding tabular result
+🧩 Handles fuzzy matching, LIKE queries, and ambiguous schema
 
-Handles fuzzy matching, LIKE queries, and schema ambiguity
+⚡ Optimized inference with sub-200ms response times
 
-Sub-200ms response time with optimized inference
+🗂️ Project Structure
+File/Folder	Description
+app.py	Main application logic for Gradio interface and model inference
+AIT726_Team4_RSW_SKK_Model.ipynb	Model training & inference notebook
+AIT726_Team4_RSW_SKK_Demo.ipynb	Demonstration and usage examples notebook
+AIT_736_Team4_readme.txt	Project notes and experiment logs
+checkpoint/	Fine-tuned BART model directory
+requirements.txt	Python dependencies for deployment
 
-🏗️ Architecture
-Fine-tuned BART-large with schema/entity-aware input format
+🧠 How It Works
+Upload CSV Files – These are loaded into an in-memory SQLite database.
 
-SQLite engine for dynamic CSV execution
+Ask a Question – The system constructs a schema-aware prompt.
 
-Fallbacks for malformed or unmatched queries (LIKE, fuzzy match)
+Generate SQL – The BART model generates a SQL query based on the input.
 
-Deployed with Gradio and Hugging Face Spaces
+Post-process Query – Applies regex corrections and fuzzy logic if needed.
 
-📁 Repository Structure
-bash
-Copy
-Edit
-├── app.py                  # Main Gradio app script
-├── checkpoint/             # Fine-tuned BART model
-├── requirements.txt        # Python dependencies
-└── README.md               # This file
-📦 Setup Instructions
-🧪 Local Testing
+Display Results – Executes the query and returns the results in a table.
+
+📦 Installation (Local)
 bash
 Copy
 Edit
@@ -47,36 +47,6 @@ git clone https://huggingface.co/spaces/Rushikesh-S-Ware/NLP-SQL-Transformer
 cd NLP-SQL-Transformer
 pip install -r requirements.txt
 python app.py
-Then open your browser at http://localhost:7860
-
-🧠 Model Details
-Base: facebook/bart-large
-
-Trained on: Spider Dataset
-
-Serialization format:
-
-txt
-Copy
-Edit
-[ENT] name [/ENT]
-[SCHEMA] t1(name, age, city) | t2(dept, salary) [/SCHEMA]
-Question: How many employees named Amy?
-📊 Evaluation
-Metric	Score
-Exact Match (Spider)	45.6%
-Execution Accuracy	59.8%
-Latency	~95ms
-
-📄 Report and Presentation
-📘 Final Report (PDF)
-
-📊 Slide Deck (PPTX)
-
-👥 Team
-Rushikesh Ware – rware3@gmu.edu
-
-Saharsh Koli – skoli2@gmu.edu
-
 📜 License
-This project is licensed under the MIT License (or you can add your own license as needed).
+MIT License
+
