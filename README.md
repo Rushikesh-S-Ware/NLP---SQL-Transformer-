@@ -35,7 +35,7 @@ A Gradio-powered chatbot that transforms natural language questions into SQL que
 ---
 ## 🧠 System Architecture
 
-![System Architecture](System architecture.png)
+![System Architecture](system-architecture.png)
 
 
 ## 🧠 How It Works
