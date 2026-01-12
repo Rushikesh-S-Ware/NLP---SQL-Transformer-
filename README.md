@@ -33,6 +33,10 @@ A Gradio-powered chatbot that transforms natural language questions into SQL que
 | `requirements.txt`            | Python dependencies for deployment                              |
 
 ---
+## 🧠 System Architecture
+
+
+
 
 ## 🧠 How It Works
 
