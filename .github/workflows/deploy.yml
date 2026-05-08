@@ -1,0 +1,63 @@
+# ── Deploy: Push to HuggingFace Spaces on merge to main ───────────────────────
+#
+# Prerequisites — add these secrets in GitHub repo Settings → Secrets:
+#   HF_TOKEN   : Your HuggingFace write token (Settings → Access Tokens)
+#   HF_SPACE   : Your Space repo ID, e.g. "Rushikesh-S-Ware/NLP-SQL-Transformer"
+#
+# What this does:
+#   1. Runs tests first (won't deploy if tests fail)
+#   2. Pushes the repo to HuggingFace Spaces via git
+#   3. HF Space detects the Streamlit app (sdk: streamlit in README header)
+#      and rebuilds automatically
+#
+# Trigger: push to main only (after PR is merged)
+
+name: Deploy to HuggingFace Spaces
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  test:
+    name: Run tests before deploy
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+      - run: |
+          pip install torch --index-url https://download.pytorch.org/whl/cpu
+          pip install -r requirements.txt pytest pytest-cov
+      - run: pytest --tb=short -q
+
+  deploy:
+    name: Push to HuggingFace Space
+    runs-on: ubuntu-latest
+    needs: test          # only runs if tests pass
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0   # full history needed for git push
+
+      - name: Configure git identity
+        run: |
+          git config user.email "ci@github.com"
+          git config user.name  "GitHub Actions"
+
+      - name: Push to HuggingFace Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+          HF_SPACE: ${{ secrets.HF_SPACE }}
+        run: |
+          # Add HuggingFace Space as a remote and force-push
+          git remote add hf "https://Rushikesh-S-Ware:${HF_TOKEN}@huggingface.co/spaces/${HF_SPACE}"
+          git push hf main --force
+
+      - name: Deployment summary
+        run: |
+          echo "✅ Deployed to https://huggingface.co/spaces/${{ secrets.HF_SPACE }}"

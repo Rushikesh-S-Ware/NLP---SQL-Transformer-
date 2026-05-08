@@ -1,0 +1,41 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.backends.legacy:build"
+
+[project]
+name = "nlp-sql-transformer"
+version = "0.1.0"
+description = "Natural language to SQL transformer using fine-tuned BART on Spider dataset"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "MIT"}
+authors = [
+    {name = "Rushikesh Ware"},
+    {name = "Saharsh Koli"},
+]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*"]
+
+# ── pytest ──────────────────────────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths       = ["tests"]
+python_files    = ["test_*.py"]
+python_classes  = ["Test*"]
+python_functions= ["test_*"]
+addopts         = "-v --tb=short --cov=src --cov-report=term-missing --cov-report=xml"
+log_cli         = true
+log_cli_level   = "WARNING"
+
+# ── coverage ────────────────────────────────────────────────────────────────
+[tool.coverage.run]
+source  = ["src"]
+omit    = ["*/tests/*", "*/__init__.py", "*/model.py", "*/inference.py"]
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+# model.py + inference.py require a real GPU/torch install — excluded from coverage.
+# The remaining modules (database, postprocess, config) must stay above 85%.
+fail_under   = 85

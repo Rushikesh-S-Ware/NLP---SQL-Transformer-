@@ -1,6 +1,17 @@
+---
+title: NLP-SQL Transformer
+emoji: 🧠
+colorFrom: blue
+colorTo: purple
+sdk: streamlit
+sdk_version: "1.32.0"
+app_file: app.py
+pinned: false
+---
+
 # 🧠 NLP-SQL Transformer
 
-A Gradio-powered chatbot that transforms natural language questions into SQL queries, enabling users to explore their uploaded CSV data interactively.
+A Streamlit app that transforms natural language questions into SQL queries, enabling users to explore their uploaded CSV data interactively.
 
 ## 📄 Project Summary
 
