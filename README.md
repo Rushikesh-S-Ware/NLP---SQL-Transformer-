@@ -1,75 +1,75 @@
----
-title: NLP-SQL Transformer
-emoji: 🧠
-colorFrom: blue
-colorTo: purple
-sdk: streamlit
-sdk_version: "1.32.0"
-app_file: app.py
-pinned: false
----
+# NLP-to-SQL Transformer
 
-# 🧠 NLP-SQL Transformer
+> BART-based transformer that translates natural-language questions into executable SQL over user-uploaded CSV files.
 
-A Streamlit app that transforms natural language questions into SQL queries, enabling users to explore their uploaded CSV data interactively.
-
-## 📄 Project Summary
-
-**NLP-SQL Transformer** is an intelligent question-answering system that allows users to upload one or more CSV files and ask data-related questions in plain English (e.g., _"How many users are over 25?"_). Powered by a fine-tuned BART Transformer model, it dynamically generates SQL queries and executes them on the uploaded files, returning both the query and the result.
-
-➡️ **[Live Demo on Hugging Face Spaces](https://huggingface.co/spaces/Rushikesh-S-Ware/NLP-SQL-Transformer)**
+[![Live Demo](https://img.shields.io/badge/HuggingFace-Live%20Demo-yellow?logo=huggingface)](https://huggingface.co/spaces/Rushikesh-S-Ware/NLP-SQL-Transformer)
+[![Python](https://img.shields.io/badge/Python-3.10+-blue?logo=python)](https://www.python.org/)
+[![PyTorch](https://img.shields.io/badge/PyTorch-2.0-orange?logo=pytorch)](https://pytorch.org/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 
 ---
 
-## 🚀 Features
+## Problem
 
-- 📂 Upload one or more CSV files
-- 🧠 Ask natural language questions
-- 🧾 Generates executable SQL queries
-- 📊 Returns tabular results
-- 🧩 Handles fuzzy matching, LIKE queries, and ambiguous schema
-- ⚡ Optimized inference with sub-200ms response times
+Business users can't write SQL but need to query their data. Off-the-shelf LLMs hallucinate column names and produce non-executable queries on unseen schemas.
 
----
+## Approach
 
-## 🗂️ Project Structure
+Fine-tuned `facebook/bart-base` on the **Spider** cross-domain text-to-SQL benchmark with schema-aware prompting and entity resolution. Inference optimized via ONNX export.
 
-| File/Folder                    | Description                                                      |
-|-------------------------------|------------------------------------------------------------------|
-| `app.py`                      | Main application logic for Gradio interface and model inference |
-| `Model_Training.ipynb` | Model training & inference notebook                              |
-| `Demo_Notebook.ipynb`  | Demonstration and usage examples notebook                        |
-| `Project_Overview.txt`         | Project notes and experiment logs                                |
-| `Model_Checkpoint.zip`                 | Fine-tuned BART model directory                                 |
-| `requirements.txt`            | Python dependencies for deployment                              |
+## Results
 
----
-## 🧠 System Architecture
-<p align="center">
-  <img src="system-architecture.png" alt="System Architecture" width="500"/>
-</p>
+| Metric | Value |
+|---|---|
+| Spider exact-match accuracy | **45.6%** |
+| Inference latency (ONNX vs PyTorch) | **60% faster** |
+| Live demo response time | < 200 ms |
 
-## 🧠 How It Works
+## Architecture
 
-1. **Upload CSV Files** – These are loaded into an in-memory SQLite database.
-2. **Ask a Question** – The system constructs a schema-aware prompt.
-3. **Generate SQL** – The BART model generates a SQL query based on the input.
-4. **Post-process Query** – Applies regex corrections and fuzzy logic if needed.
-5. **Display Results** – Executes the query and returns the results in a table.
+![System Architecture](system-architecture.png)
 
----
+1. User uploads one or more CSV files → loaded into in-memory SQLite.
+2. Schema is serialized and prepended to the user question.
+3. Fine-tuned BART generates the SQL query.
+4. Post-processing: regex correction, fuzzy matching for column names.
+5. Query executes against SQLite; result returned as a table.
 
-## 📦 Installation (Local)
+## Tech Stack
+
+- **Model:** BART-base, fine-tuned on Spider
+- **Serving:** FastAPI + Gradio on Hugging Face Spaces
+- **Optimization:** ONNX runtime (60% speedup vs PyTorch baseline)
+- **Data:** Spider benchmark + user-uploaded CSVs
+
+## Quickstart
 
 ```bash
-git clone https://huggingface.co/spaces/Rushikesh-S-Ware/NLP-SQL-Transformer
-cd NLP-SQL-Transformer
+git clone https://github.com/Rushikesh-S-Ware/nlp-sql-transformer
+cd nlp-sql-transformer
 pip install -r requirements.txt
-python app.py
+python src/app.py
 ```
 
----
+Open `http://localhost:7860` and upload a CSV.
 
-## 📜 License
+## Live Demo
 
-MIT License
+👉 https://huggingface.co/spaces/Rushikesh-S-Ware/NLP-SQL-Transformer
+
+## Repository Layout
+
+| Path | Purpose |
+|---|---|
+| `src/` | FastAPI server + inference pipeline |
+| `tests/` | Unit and integration tests |
+| `.github/workflows/` | CI: lint, test, build |
+| `Model_Training.ipynb` | Fine-tuning pipeline on Spider |
+| `Demo_Notebook.ipynb` | Usage examples |
+| `Model_Checkpoint/` | Fine-tuned weights |
+| `requirements.txt` | Dependencies |
+| `.env.example` | Required environment variables |
+
+## License
+
+MIT
